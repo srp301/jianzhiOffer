@@ -1,0 +1,35 @@
+替换空格：
+请实现一个函数，将一个字符串中的空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
+
+分析：
+这道题比较简单，有两种方法，第一种就用replace方法，参数匹配正则表达式即可；
+第二种方法是遍历整个字符串，不是空格的就连接到新字符串中，将是空格的替换为%20再连接到新字符串中。
+
+Solution1:
+function replaceSpace(str)
+{
+    // write code here
+    str = str.replace(/\s/g,'%20');
+    return str;
+}
+module.exports = {
+    replaceSpace : replaceSpace
+};
+
+Solution2:
+function replaceSpace(str)
+{
+    // write code here
+    var rtnstr = '';
+    for(var i in str){
+        if(str[i] !== ' '){
+            rtnstr += str[i];
+        }else {
+            rtnstr += '%20';
+        }
+    }
+    return rtnstr;
+}
+module.exports = {
+    replaceSpace : replaceSpace
+};

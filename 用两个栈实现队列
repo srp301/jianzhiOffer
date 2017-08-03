@@ -2,5 +2,30 @@
 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
 
 分析：
+	JavaScript本身的数组的方法里就有队列的push和shift的队列方法，所以这个不作考虑，我们使用另外一种用push和pop的方法
+	来做，基本思路是在pop方法中，将第一个数组中的元素pop出来，之后push进第二个数组中的元素，当第一个数组中的元素pop完之
+	后，第二个数组中的元素全是与第一个数组反向的，所以可以使用pop方法实现队列的shift方法，直到第二个数组中的元素全部pop
+	出来之后，再将第一个数组按照开始时候的步骤push进去，这样就完成了一个队列。
 
 Solution:
+var stack1 = [];
+var stack2 = [];
+function push(node)
+{
+    // write code here
+    stack1.push(node);
+}
+function pop()
+{
+    // write code here
+    if(stack2.length === 0){
+    	while(stack1.length !== 0){
+    	    stack2.push(stack1.pop());
+    	}
+    }
+    return stack2.pop();
+}
+module.exports = {
+    push : push,
+    pop : pop
+};

@@ -1,0 +1,53 @@
+旋转数组的最小数字：
+	把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元
+	素。例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
+
+分析：
+	方法一：
+		从头开始遍历，当这个元素值大于后面那个元素值的时候，后面那个元素就是最小值。
+	方法二：
+		实际上旋转的数组在一定程度上是有序的，而且可以分为两个已经排序的数组，我们要做的就是要把那个旋转的点找出来，旋转数组的特点
+		就是，旋转数组前面的所有值都会大于等于后面的所有值，而分界点就是旋转的点。
+		这题是个二分查找的一个变式，中间元素如果大于等于
+		右边元素，意味着旋转的部分在右边，中间元素小于右边值，说明从中点到右边的值都是未旋转过的，则旋转部分在左边。但是有一种特
+		例，如果说左边元素、中间元素、右边元素三者相等，则无法分辨出哪段是旋转部分，就不能采用二分法了，这个时候就将采用方法一。
+	
+
+Solution：
+function minNumberInRotateArray(rotateArray)
+{
+    // write code here
+    if(rotateArray.length === 0){
+        return 0;
+    }
+    var lo = 0,hi = rotateArray.length-1;
+    if(rotateArray[lo]<rotateArray[hi]){
+        return rotateArray[lo];
+    }
+    while(lo<hi){
+        if(hi-lo == 1){
+            lo = hi;
+            break;
+        }
+        var m = parseInt((hi+lo)/2);
+        if(rotateArray[m]==rotateArray[lo] &&rotateArray[hi]==rotateArray[lo] &&rotateArray[m]==rotateArray[hi] ){
+            shunxuchazhao(lo,hi);
+            break;
+        }else if(rotateArray[lo]<=rotateArray[m]){
+            lo = m;
+        }else{
+            hi = m;
+        }
+    }
+    function shunxuchazhao(lo,hi){
+        while(lo<hi){
+            if(rotateArray[lo]>rotateArray[++lo]){
+                break;
+            }
+        }
+    }
+    return rotateArray[lo];
+}
+module.exports = {
+    minNumberInRotateArray : minNumberInRotateArray
+};

@@ -1,0 +1,47 @@
+从尾到头打印链表:
+输入一个链表，从尾到头打印链表每个节点的值。
+
+分析:
+	方法一：利用循环，每遍历一次就用unshift添加一次数组
+	方法二：利用递归，若不为空则继续调用自身，并在调用完之后把自身push到数组中
+
+Solution1:
+/*function ListNode(x){
+    this.val = x;
+    this.next = null;
+}*/
+function printListFromTailToHead(head)
+{
+    // write code here
+    var rtn = [];
+    while(head !== null){
+        rtn.unshift(head.val);
+        head = head.next;
+    }
+    return rtn;
+}
+module.exports = {
+    printListFromTailToHead : printListFromTailToHead
+};
+
+Solution2:
+/*function ListNode(x){
+    this.val = x;
+    this.next = null;
+}*/
+function printListFromTailToHead(head)
+{
+    // write code here
+    var rtn = [];
+    function print(head){
+        if(head !== null){
+        	print(head.next);
+            rtn.push(head.val);
+        }
+    }
+    print(head);
+    return rtn;
+}
+module.exports = {
+    printListFromTailToHead : printListFromTailToHead
+};

@@ -1,0 +1,49 @@
+斐波那契数列：
+大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项。
+n<=39
+
+分析：
+	通常的递归算法：
+		function Fibonacci(n){
+			if(n === 1 || n === 2){
+				return 1;
+			}
+			return Fibonacci(n-1)+Fibonacci(n-2);
+		}
+	这种递归算法重复的计算很多，当n很大的时候效率会变得很低，而且占用的内存空间非常大。所以我们需要改变思路，可以从下往上计算，
+	先算Fibonacci(1)，再算Fibonacci(2)，以此类推，并开辟一块空间用来存储中间值。
+	(其实还有一种更加简便的解法，动态规划：
+		class Solution {
+			public:
+			    int Fibonacci(int n) {
+			        int f = 0, g = 1;
+			        while(n--) {
+			            g += f;
+			            f = g - f;
+			        }
+			        return f;
+			    }
+			};
+	)
+
+Solution:
+function Fibonacci(n)
+{
+    // write code here
+    var result = [0,1];
+    if(n<2){
+        return result[n];
+    }
+    var rtn = 0,
+        one = 0,
+        two = 1;
+    for(var i = 2;i<=n;i++){
+        rtn = one + two;
+        one = two;
+        two = rtn;
+    }
+    return rtn;
+}
+module.exports = {
+    Fibonacci : Fibonacci
+};

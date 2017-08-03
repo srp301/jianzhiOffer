@@ -1,0 +1,39 @@
+重建二叉树:
+输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
+例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
+
+分析：
+	在二叉树的前序遍历中，第一个位置总是指向的是根节点的位置。但是在中序遍历中，根节点的值在序列的中间，左子树位于根节点的左边，
+	右子树位于根节点的右边，因此我们需要遍历中序遍历才能得到根节点的位置。
+	题中的前序遍历的第一个值为1，意味着这个二叉树的根节点为1，遍历中序遍历序列，找到1的位置，位于第4个，即这个二叉树的左子节点
+	有三个，右子节点有4个，即前序遍历序列第一个为根节点，第二个值到第四个值都是左子节点，而第五个值到第七个值都是右子节点。由此
+	可以写出一个递归代码
+
+Solution:
+function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+}
+function reConstructBinaryTree(pre, vin)
+{
+    // write code here
+    var root = reConstructTree(0,pre.length-1,0,vin.length-1);
+    function reConstructTree(prestart,preend,vinstart,vinend){
+        if(prestart>preend || vinstart>vinend){
+            return null;
+        }
+        var node = new TreeNode(pre[prestart]);
+        for(var i = vinstart;i<=vinend;i++){
+            if(pre[prestart] === vin[i]){
+                node.left = reConstructTree(prestart+1,prestart+i-vinstart,vinstart,i-1);
+                node.right = reConstructTree(prestart+i-vinstart+1,preend,i+1,vinend);
+            }
+        }
+        return node;
+    }
+    return root;
+}
+module.exports = {
+    reConstructBinaryTree : reConstructBinaryTree
+};

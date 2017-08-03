@@ -1,0 +1,25 @@
+跳台阶:
+一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法。
+
+分析:
+	这题就是斐波那契数列，具体可以看斐波那契数列那一题。本题就用最简单的解法了。
+
+Solution:
+function jumpFloor(number)
+{
+    // write code here
+    var result = [1,1,2];
+    if(number<3){
+        return result[number];
+    }
+    var a = 0,b = 1;
+    while(number>0){
+        b += a;
+        a = b - a;
+        number--;
+    }
+    return b;
+}
+module.exports = {
+    jumpFloor : jumpFloor
+};

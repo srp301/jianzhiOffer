@@ -1,0 +1,41 @@
+包含min函数的栈：
+定义栈的数据结构，请在该类型中实现一个能够得到栈最小元素的min函数。
+
+分析：
+	对于JavaScript来说挺没意思的一道题。
+
+Solution:
+var stack = [];
+function push(node)
+{
+    // write code here
+    stack.push(node);
+}
+function pop()
+{
+    // write code here
+    return stack.pop();
+}
+function top()
+{
+    // write code here
+    return stack[stack.lengh-1];
+}
+function min()
+{
+    // write code here
+    var min = stack[0];
+    var len = stack.length;
+    for(var i = 1;i<len;i++){
+        if(stack[i]<min){
+            min = stack[i];
+        }
+    }
+    return min;
+}
+module.exports = {
+    push : push,
+    pop : pop,
+    top : top,
+    min : min
+};

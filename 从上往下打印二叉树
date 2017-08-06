@@ -1,0 +1,36 @@
+从上往下打印二叉树：
+从上往下打印出二叉树的每个节点，同层节点从左至右打印。
+
+分析：
+	可以借助一个队列。
+
+Solution:
+/* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+function PrintFromTopToBottom(root)
+{
+    // write code here
+    var rtn = [];
+    var arr = [];
+    if(root === null){
+        return rtn;
+    }
+    arr.push(root);
+    while(arr.length){
+        var node = arr.shift();
+        if(node.left!==null){
+            arr.push(node.left);
+        }
+        if(node.right!==null){
+            arr.push(node.right);
+        }
+        rtn.push(node.val);
+    }
+    return rtn;
+}
+module.exports = {
+    PrintFromTopToBottom : PrintFromTopToBottom
+};

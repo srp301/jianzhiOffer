@@ -1,0 +1,89 @@
+字符串的排列：
+输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c所能排列出来的
+所有字符串abc,acb,bac,bca,cab和cba。
+输入描述:
+输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。
+
+分析：
+	全排列算法。
+
+Solution1:
+function Permutation(str)
+{
+    // write code here
+    if(str.length === 0){
+        return [];
+    }
+    if(str.length === 1){
+        return str;
+    }
+    var rtn = [];
+    var flag = {};
+    var arr = str.split('');
+    function quanpailie(arr,i){
+        if(i == arr.length-1 && !flag[arr.join('')]){
+            rtn.push(arr.join(''));
+            flag[arr.join('')] = true;
+        }else{
+        	for(var k = i;k<arr.length;k++){
+                if(i !== k && arr[i] !== arr[k]){
+        	    	swap(arr,i,k);
+        	    	quanpailie(arr,i+1);
+                    swap(arr,i,k);
+                }
+        	}
+        }
+    }
+    quanpailie(arr,0);
+    return rtn.sort();
+}
+function swap(a,i,j){
+    var temp = a[i];
+    a[i] =  a[j];
+    a[j] = temp;
+}
+module.exports = {
+    Permutation : Permutation
+};
+
+Solution2:
+var result;
+function Permutation(str)
+{
+    result = [];
+    if(str==''){
+        return result;
+    }
+    if(str.length==1){
+        return str;
+    }
+    var data = str.split(''); 
+    PermutationStr(data,0);
+    result = result.sort();
+    var temp = [result[0]];
+    for(var i=1;i<result.length;i++){
+        if(result[i]!=temp[temp.length-1]){
+            temp.push(result[i]);
+        }
+    }
+    return temp;
+}
+function PermutationStr(str,index){
+    if(index==str.length){
+        result.push(str.join('')); 
+    }else{
+        for(var i =index;i<str.length;i++){
+            var temp = str[index];
+            str[index] = str[i];
+            str[i] = temp;
+            PermutationStr(str,index+1);
+            temp = str[index];
+            str[index] = str[i];
+            str[i] = temp;
+        }
+    }
+     
+}
+module.exports = {
+    Permutation : Permutation
+};

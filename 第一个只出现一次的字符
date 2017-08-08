@@ -1,0 +1,35 @@
+第一个只出现一次的字符：
+在一个字符串(1<=字符串长度<=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置
+
+分析：
+	根据题意，找出所有字符串中只出现过一次的字符，这么说来这个字符串都要至少遍历一遍。复杂度至少是O(n)。
+
+Solution:
+function FirstNotRepeatingChar(str)
+{
+    // write code here
+    if(!str){
+        return -1;
+    }
+    var flag = {};
+    var len = str.length;
+    for(var i = 0;i<len;i++){
+        if(flag[str[i]]){
+            if(flag[str[i]]>2){
+                continue;
+            }else{
+                flag[str[i]]++;
+            }
+        }else{
+            flag[str[i]] = 1;
+        }
+    }
+    for(var i = 0;i<len;i++){
+        if(flag[str[i]] == 1){
+            return i;
+        }
+    }
+}
+module.exports = {
+    FirstNotRepeatingChar : FirstNotRepeatingChar
+};

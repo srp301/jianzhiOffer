@@ -1,0 +1,38 @@
+丑数：
+把只包含因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。
+
+分析：
+	一般来说我们会用循环的方式从1开始判断是否是丑数，如果是的话count++，直到count==N,这个时候返回当前判断的数。
+	但是这个算法效率低下，因为不管是不是丑数都要判断一遍。所以我们转换思路，我们知道丑数是由前一个丑数乘以2或者乘
+	以3或者乘以5来的，因此我们可以直接计算丑数。
+
+Solution:
+function GetUglyNumber_Solution(index)
+{
+    // write code here
+    if(index <= 0){
+        return 0;
+    }
+    var ugly = [1];
+    var count = 1,
+        multiply2 = 0,
+        multiply3 = 0,
+        multiply5 = 0;
+    while(count < index){
+        ugly[count] = Math.min(ugly[multiply2]*2,ugly[multiply3]*3,ugly[multiply5]*5);
+        while(ugly[multiply2]*2<=ugly[count]){
+            multiply2++;
+        }
+        while(ugly[multiply3]*3<=ugly[count]){
+            multiply3++;
+        }
+        while(ugly[multiply5]*5<=ugly[count]){
+            multiply5++;
+        }
+        count++;
+    }
+    return ugly[count-1];
+}
+module.exports = {
+    GetUglyNumber_Solution : GetUglyNumber_Solution
+};

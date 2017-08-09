@@ -1,0 +1,57 @@
+数字在数组中出现的次数：
+统计一个数字在排序数组中出现的次数。
+
+分析：
+	二分法，找出相同的数字的第一个和最后一个位置。
+
+Solution:
+function GetNumberOfK(data, k)
+{
+    // write code here
+    var start = getFirstK(data,k,0,data.length-1);
+    var end = getLastK(data,k,0,data.length-1);
+    
+    function getFirstK(data,k,start,end){
+        if(start>end){
+            return -1;
+        }
+        var m = start+((end-start)>>1);
+        if(data[m] == k){
+            if((m>0 && data[m-1] != k) || m==0){
+                return m;
+            }else{
+                end = m-1;
+            }
+        }else if(data[m] > k){
+            end = m-1;
+        }else{
+            start = m+1;
+        }
+        return getFirstK(data,k,start,end);
+    }
+    function getLastK(data,k,start,end){
+        if(start>end){
+            return -1;
+        }
+        var m = start+((end-start)>>1);
+        if(data[m] == k){
+            if((m<data.length-1 && data[m+1] != k)|| m == data.length-1){
+                return m;
+            }else{
+                start = m+1;
+            }
+        }else if(data[m] > k){
+            end = m-1;
+        }else{
+            start = m+1;
+        }
+        return getLastK(data,k,start,end);
+    }
+    if(start == -1 && end == -1){
+        return end-start;
+    }
+    return end-start+1;
+}
+module.exports = {
+    GetNumberOfK : GetNumberOfK
+};

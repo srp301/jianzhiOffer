@@ -1,0 +1,33 @@
+和为S的两个数字：
+输入一个递增排序的数组和一个数字S，在数组中查找两个数，是的他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。
+输出描述:
+对应每个测试案例，输出两个数，小的先输出。
+
+分析:
+	LeetCode上的Two Sum的变题，要求要输出乘积最小的，用的双指针的解法，一个指针放在数组左边，一个放在数组右边，乘积最小的
+其实就是找到的第一对和为S的数对，因为是递增的数列，越两边的数对相乘数值越小。
+
+Solution:
+function FindNumbersWithSum(array, sum)
+{
+    // write code here
+    var left = 0,
+        right = array.length-1,
+        mul = Number.MAX_VALUE,
+        rtn = [];
+    while(left<right){
+        var num = array[left]+array[right];
+        if(num<sum){
+            left++;
+        }else if(num>sum){
+            right--;
+        }else{
+            rtn = [array[left],array[right]];
+            break;
+        }
+    }
+    return rtn;
+}
+module.exports = {
+    FindNumbersWithSum : FindNumbersWithSum
+};

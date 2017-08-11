@@ -1,0 +1,48 @@
+把二叉树打印成多行：
+从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。
+
+分析:
+	请参照按之字形打印二叉树那一题。
+
+Solution:
+/* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+function Print(pRoot)
+{
+    // write code here
+    var rtn = [];
+    var temp = [];
+    if(!pRoot){
+        return rtn;
+    }
+    var sum = 1,
+        nextlevel = 0,
+        arr = [];
+    temp.push(pRoot);
+    while(temp.length != 0){
+        var a = temp.shift();
+        arr.push(a.val);
+        sum--;
+        if(a.left){
+            temp.push(a.left);
+            nextlevel++;
+        }
+        if(a.right){
+            temp.push(a.right);
+            nextlevel++;
+        }
+        if(sum==0){
+            sum = nextlevel;
+            nextlevel = 0;
+            rtn.push(arr);
+            arr = [];
+        }
+    }
+    return rtn;
+}
+module.exports = {
+    Print : Print
+};

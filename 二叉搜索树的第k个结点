@@ -1,0 +1,32 @@
+二叉搜索树的第k个结点:
+给定一颗二叉搜索树，请找出其中的第k大的结点。例如， 5 / \ 3 7 /\ /\ 2 4 6 8 中，按结点数值大小顺序第三个结点的值为4。
+
+分析：
+	二叉搜索树的中序遍历就是排序好了的结果。
+
+Solution:
+/* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+function KthNode(pRoot, k)
+{
+    // write code here
+    if(k<=0){
+        return null;
+    }
+    var rtn = [];
+    midInorder(pRoot);
+    function midInorder(pRoot){
+        if(pRoot){
+            midInorder(pRoot.left);
+            rtn.push(pRoot);
+            midInorder(pRoot.right);
+        }
+    }
+    return rtn[k-1];
+}
+module.exports = {
+    KthNode : KthNode
+};

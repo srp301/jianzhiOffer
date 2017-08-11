@@ -1,0 +1,36 @@
+数据流中的中位数：
+如何得到一个数据流中的中位数？如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。
+如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。
+
+分析：
+	这里要注意，JavaScript里的计算不像其他语言那样对int型计算结果还是int型，JavaScript里只有number，整数做除法之后
+	可以变为小数，所以JavaScript里提供了parseInt方法，但是调用库函数的运算远不如操作符效率高，可以使用>>(有符号右移)，
+	对于大于0的m来说，m>>1相当于parseInt(m/2)。
+
+Solution:
+var arr =[];
+function Insert(num)
+{
+    // write code here
+    arr.push(num);
+    arr.sort();
+}
+function GetMedian(){
+	// write code here
+    
+    var len = arr.length;
+    if(len == 0){
+        return 0;
+    }
+    if(len%2 == 1){
+        var temp = len>>1;
+        return arr[temp];
+    }else{
+        var temp = len>>1;
+        return (arr[temp]+arr[temp-1])/2;
+    }
+}
+module.exports = {
+    Insert : Insert,
+    GetMedian : GetMedian
+};

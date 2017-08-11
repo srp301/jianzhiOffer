@@ -1,0 +1,40 @@
+序列化二叉树:
+请实现两个函数，分别用来序列化和反序列化二叉树
+
+Solution:
+function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+}
+var result = []
+function Serialize(pRoot)
+{
+    // write code here
+    if(!pRoot){
+        result.push(' ');
+        return null;
+    }
+    result.push(pRoot.val);
+    Serialize(pRoot.left);
+    Serialize(pRoot.right);
+}
+function Deserialize(s)
+{
+    // write code here
+    if(!result || result.legnth<1){
+        return null;
+    }
+    var root = 0;
+    var temp = result.shift();
+    if(typeof temp == 'number'){
+        var node = new TreeNode(temp);
+        node.left = Deserialize(result);
+        node.right = Deserialize(result);
+    }
+    return node;
+}
+module.exports = {
+    Serialize : Serialize,
+    Deserialize : Deserialize
+};

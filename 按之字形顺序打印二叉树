@@ -1,0 +1,58 @@
+按之字形顺序打印二叉树:
+请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，
+第三行按照从左到右的顺序打印，其他行以此类推。
+
+分析：
+	利用队列的思想：
+	初始化的时候先将根节点push进队列，本层结点总数+1，层数为1。
+	1、shift出结点，本层结点总数-1，判断是否有左右结点，若有则push进队列，下一层结点+2.
+	2、若本层结点总数为0，则本层结点全部打印完毕，这时候level+1，level为双数层的时候，要反向打印，即将数组反向，
+	将下一层结点总数赋值给本层结点，重新初始化数组，循环第一步。
+
+Solution:
+/* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+function Print(pRoot)
+{
+    // write code here
+    var rtn = [];
+    var temp = [];
+    if(!pRoot){
+        return rtn;
+    }
+    var sum = 1,
+        nextlevel = 0,
+        level = 1,
+        arr = [];
+    temp.push(pRoot);
+    while(temp.length != 0){
+        var a = temp.shift();
+        arr.push(a.val);
+        sum--;
+        if(a.left){
+            temp.push(a.left);
+            nextlevel++;
+        }
+        if(a.right){
+            temp.push(a.right);
+            nextlevel++;
+        }
+        if(sum==0){
+            sum = nextlevel;
+            nextlevel = 0;
+            if(level%2==0){
+                arr.reverse();
+            }
+            level++;
+            rtn.push(arr);
+            arr = [];
+        }
+    }
+    return rtn;
+}
+module.exports = {
+    Print : Print
+};
